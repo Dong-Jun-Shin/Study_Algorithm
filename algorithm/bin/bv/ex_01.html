@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#productForm").submit(function(){
+					var bool = true;
+					
+					$(".name").each(function(){
+						if($("#name").val()==$(this).html()){
+							var stock = $(this).next();
+							var stockSum = $("#stock").val()*1 + stock.html()*1;
+							
+							if(stockSum < 1){
+								$(this).parent().remove();
+							}else{
+								stock.html(stockSum);
+							}
+							
+							bool = false;
+						}
+					});
+					
+					if(bool && $("#stock").val() > 1){
+						createProduct();
+					}
+					
+					formClear($("#productForm"));
+					return false;
+				});
+			});
+			
+			function createProduct(){
+				var tr = $("<tr>");
+				var nameTd = $("<td>").html($("#name").val()).addClass("name");
+				var stockTd = $("<td>").html($("#stock").val()).addClass("stock");
+				
+				tr.append(nameTd).append(stockTd);
+				$("#productList").append(tr);
+			}
+			
+			function formClear(form){
+				form.each(function(){
+					this.reset();
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<h1>stock</h1>
+		<div>
+			<form id="productForm">
+				<label for="name">name</label>
+				<input id="name" name="name" type="text" required="required">
+				<label for="stock">stock</label>
+				<input id="stock" name="stock" type="number" required="required">
+				<button id="addBtn" type="submit">submit</button>
+			</form>
+		</div>
+		<table id="productList" border="1">
+			<tr>
+				<th>Name</th>
+				<th>Stock</th>
+			</tr>
+		</table>
+	</body>
+</html>
