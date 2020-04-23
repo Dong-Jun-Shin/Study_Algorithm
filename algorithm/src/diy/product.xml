@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="diy.product">
+	<insert id="productInsert" parameterType="com.kplant.admin.order.vo.ProductVO">
+		INSERT INTO product(prd_num, prd_name, prd_price, prd_type, prd_qty)
+		VALUES(#{prd_num}, #{prd_name}, #{prd_price}, #{prd_type}, #{prd_qty})
+	 </insert>
+	
+	<insert id="imageInsert" parameterType="com.kplant.admin.order.vo.ProductImgVO">
+		/* Image - imageInsert */
+		INSERT INTO product_image(i_num, i_file, prd_num)
+		VALUES(#{i_num},  #{i_file}, #{prd_num})
+	</insert>
+</mapper>
